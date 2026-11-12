@@ -30,12 +30,12 @@ export const AllotmentDonutChart: React.FC = () => {
         <div>
           <h4 className="text-sm font-semibold text-slate-900 flex items-center gap-1.5">
             <PieChart className="w-4 h-4 text-slate-500" />
-            <span>Allotment Success Distribution</span>
+            <span>Simulated Allotment Distribution</span>
           </h4>
-          <p className="text-xs text-slate-500">Historical hit-rate across all PAN portfolios</p>
+          <p className="text-xs text-slate-500">Breakdown across sample demo bids (UI preview only)</p>
         </div>
-        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono">
-          {allottedPct}% Success
+        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-mono">
+          {allottedPct}% Sample Allotted
         </span>
       </div>
 
@@ -135,12 +135,13 @@ export const AllotmentDonutChart: React.FC = () => {
       </div>
 
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-        <span className="flex items-center gap-1">
-          <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Allotments based on official registrar records</span>
+        <span className="flex items-center gap-1 text-slate-500">
+          <TrendingUp className="w-3.5 h-3.5 text-slate-400" />
+          <span>Simulated demo metrics • Live registrar sync planned in Phase 4</span>
         </span>
-        <span className="font-mono text-slate-400">SEBI Basis of Allotment</span>
+        <span className="font-mono text-slate-400">Prototype Mode</span>
       </div>
     </div>
   );
 };
+

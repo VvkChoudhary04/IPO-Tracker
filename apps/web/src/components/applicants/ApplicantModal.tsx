@@ -133,7 +133,7 @@ export const ApplicantModal: React.FC<ApplicantModalProps> = ({
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 Masked PAN *
               </label>
-              <span className="text-[10px] text-emerald-700 font-mono">SEBI Compliant</span>
+              <span className="text-[10px] text-slate-500 font-mono">Masked Format</span>
             </div>
             <input
               type="text"
@@ -197,15 +197,15 @@ export const ApplicantModal: React.FC<ApplicantModalProps> = ({
           </div>
         </div>
 
-        {/* Privacy & Zero-Plaintext Callout */}
+        {/* Privacy Callout */}
         <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs text-slate-600 space-y-1.5">
           <div className="flex items-center gap-1.5 font-medium text-slate-900">
-            <Lock className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Zero-Plaintext PAN Guarantee</span>
+            <Lock className="w-3.5 h-3.5 text-slate-600" />
+            <span>Client Masking & Prototype Security</span>
           </div>
           <p className="text-[11px] leading-relaxed text-slate-500">
-            In compliance with Indian data privacy norms, complete PANs are never rendered in the UI
-            and will be encrypted via AES-256 keys in the Supabase vault during Phase 3.
+            For UI demonstration, enter only masked PAN placeholders (e.g. ABCDE****F).
+            Database encryption and secure credential handling will be configured in Phase 3.
           </p>
         </div>
 

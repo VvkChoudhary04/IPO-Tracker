@@ -117,11 +117,11 @@ export const AllotmentResultsPage: React.FC = () => {
               Allotment Results & Status
             </h1>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold font-mono">
-              {totalBids} Applications
+              {totalBids} Demo Records
             </span>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Verified status reports retrieved across Link Intime, KFintech, and Bigshare official databases.
+            Simulated demonstration records for UI validation. Live registrar endpoints will be connected in Phase 4.
           </p>
         </div>
 
@@ -148,14 +148,14 @@ export const AllotmentResultsPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium uppercase tracking-wider">Shares Allotted</span>
+            <span className="font-medium uppercase tracking-wider">Simulated Allotted</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
           <div className="text-2xl font-bold font-mono text-emerald-600 mt-2">
             {totalSharesAllotted} Shares
           </div>
           <div className="text-[11px] text-slate-500 mt-1">
-            Across {allottedCount} {allottedCount === 1 ? 'application' : 'applications'}
+            Across {allottedCount} demo {allottedCount === 1 ? 'bid' : 'bids'} (Simulated)
           </div>
         </div>
 
@@ -168,31 +168,31 @@ export const AllotmentResultsPage: React.FC = () => {
             {pendingCount} Pending
           </div>
           <div className="text-[11px] text-amber-600 mt-1">
-            Auto-polling on allotment dates
+            Scheduled for allotment date
           </div>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium uppercase tracking-wider">Refunds Unblocked</span>
+            <span className="font-medium uppercase tracking-wider">Indicative Refunds</span>
             <XCircle className="w-4 h-4 text-slate-500" />
           </div>
           <div className="text-2xl font-bold font-mono text-slate-900 mt-2">
             ₹{totalRefundAmount.toLocaleString('en-IN')}
           </div>
           <div className="text-[11px] text-slate-500 mt-1">
-            {notAllottedCount} applications not allotted
+            {notAllottedCount} demo bids (Simulated)
           </div>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium uppercase tracking-wider">Registrar Verification</span>
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span className="font-medium uppercase tracking-wider">Environment Mode</span>
+            <ShieldCheck className="w-4 h-4 text-slate-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900 mt-2">100%</div>
-          <div className="text-[11px] text-emerald-600 mt-1 font-medium">
-            Zero Mock Allotments Policy
+          <div className="text-xl font-bold font-mono text-slate-800 mt-2">Demo Data</div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            Not official allotment results
           </div>
         </div>
       </div>

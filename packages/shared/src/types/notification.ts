@@ -16,3 +16,4 @@ export interface NotificationItem {
   applicantId?: string;
   link?: string;
 }
+

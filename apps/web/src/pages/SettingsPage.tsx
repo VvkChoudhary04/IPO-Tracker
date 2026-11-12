@@ -285,39 +285,51 @@ export const SettingsPage: React.FC = () => {
         </div>
       )}
 
-      {/* Tab 4: Security & PAN Vault */}
+      {/* Tab 4: Security & Architecture */}
       {activeTab === 'SECURITY' && (
         <div className="bg-white rounded-xl border border-slate-200/90 shadow-xs p-6 space-y-6">
           <div className="space-y-4 max-w-xl">
             <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
               <Lock className="w-4 h-4 text-emerald-600" />
-              <span>Cryptographic PAN Vault & Access Controls</span>
+              <span>Security & Data Architecture Status</span>
             </h3>
 
-            <div className="p-4 rounded-xl border border-emerald-200/80 bg-emerald-50/30 space-y-3">
+            <div className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-emerald-900">
-                  AES-256 Vault Encryption Status
+                <span className="text-xs font-semibold text-slate-900">
+                  Client-Side PAN Masking
                 </span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold flex items-center gap-1">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3 text-emerald-700" />
-                  ACTIVE
+                  ACTIVE (UI ONLY)
                 </span>
               </div>
-              <p className="text-xs text-emerald-950/80 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Applicant Permanent Account Numbers (PANs) are strictly masked on all client boundaries.
-                In Phase 3, database persistence will utilize hardware-backed encryption keys.
+                Real PANs are not stored. Database-level vault encryption will be implemented in Phase 3.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-900">Two-Factor Authentication (2FA)</h4>
-                  <p className="text-[11px] text-slate-500">Mandatory for modifying authorized applicant PANs</p>
+                  <h4 className="text-xs font-semibold text-slate-900">Database Vault Encryption</h4>
+                  <p className="text-[11px] text-slate-500">Database-level protection for applicant data (Planned Phase 3)</p>
                 </div>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
-                  ENABLED (TOTP)
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                  PLANNED (Phase 3)
+                </span>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-900">Two-Factor Authentication (2FA)</h4>
+                  <p className="text-[11px] text-slate-500">Security verification for managing applicant profiles</p>
+                </div>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                  PLANNED (Phase 3)
                 </span>
               </div>
             </div>
@@ -325,11 +337,11 @@ export const SettingsPage: React.FC = () => {
             <div className="p-4 rounded-xl border border-slate-200 bg-white space-y-2">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-900">Active API Key Session</h4>
-                  <p className="text-[11px] text-slate-500">Node.js Express backend handshake</p>
+                  <h4 className="text-xs font-semibold text-slate-900">Express Backend Service</h4>
+                  <p className="text-[11px] text-slate-500">REST API health handshake</p>
                 </div>
-                <span className="text-[11px] font-mono text-slate-600">
-                  SESSION-ID: IPOTRACK-7A92...
+                <span className="text-[11px] font-mono text-emerald-700 font-medium">
+                  CONNECTED (:4000)
                 </span>
               </div>
             </div>

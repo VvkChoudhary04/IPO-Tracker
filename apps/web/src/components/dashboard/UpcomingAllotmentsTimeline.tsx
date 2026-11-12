@@ -73,10 +73,11 @@ export const UpcomingAllotmentsTimeline: React.FC = () => {
 
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
         <span className="flex items-center gap-1.5 text-slate-600">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Automated registrar polling kicks off at 08:00 AM on allotment date</span>
+          <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+          <span>Scheduled registrar query pipeline will be activated in Phase 4</span>
         </span>
       </div>
     </div>
   );
 };
+

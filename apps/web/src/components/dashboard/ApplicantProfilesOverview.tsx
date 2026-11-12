@@ -88,10 +88,10 @@ export const ApplicantProfilesOverview: React.FC = () => {
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>
-            Strict PAN Security Policy: All investor identifiers are masked in UI and encrypted at rest.
+            Privacy Notice: All investor profiles use masked PAN representation (e.g. ABCDE****F).
           </span>
         </div>
-        <span className="text-[11px] font-mono text-slate-400">SEBI / RBI Aligned</span>
+        <span className="text-[11px] font-mono text-slate-400">Prototype Mode</span>
       </div>
 
       <ApplicantModal

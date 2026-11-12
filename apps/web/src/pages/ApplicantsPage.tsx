@@ -90,12 +90,11 @@ export const ApplicantsPage: React.FC = () => {
           </div>
           <div>
             <h4 className="text-sm font-semibold text-slate-900">
-              Zero-Exposure PAN & Regulatory Compliance Guardrails
+              Masked Applicant Profiles (UI Prototype)
             </h4>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              Every profile displays only a masked PAN identifier (<code className="font-mono text-emerald-800 bg-emerald-50 px-1 py-0.5 rounded">ABCDE****F</code>).
-              Actual Permanent Account Numbers are never stored in cleartext. Each applicant includes verified user consent
-              for automated querying of official registrar public portals.
+              Every profile displays only a masked PAN placeholder (<code className="font-mono text-slate-800 bg-slate-100 px-1 py-0.5 rounded">ABCDE****F</code>).
+              Real PAN numbers are not collected in this interface. Automated registrar querying pipelines will be configured in Phase 4.
             </p>
           </div>
         </div>
@@ -235,7 +234,7 @@ export const ApplicantsPage: React.FC = () => {
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 text-emerald-700 font-medium text-[11px]">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Consent Active</span>
+                    <span>Consent Recorded</span>
                   </div>
 
                   <div className="flex items-center gap-1 font-mono text-slate-600">

@@ -30,8 +30,9 @@ export const DemoBadge: React.FC<DemoBadgeProps> = ({ className = '', compact = 
         </span>
       </div>
       <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold">
-        Zero PAN Leak Policy
+        Masked PAN Placeholders Only
       </span>
     </div>
   );
 };
+

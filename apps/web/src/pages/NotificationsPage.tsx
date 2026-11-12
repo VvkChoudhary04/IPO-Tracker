@@ -94,12 +94,12 @@ export const NotificationsPage: React.FC = () => {
             <div>
               <h4 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <span>Resend Transactional Email Gateway</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold">
-                  CONNECTED
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-semibold">
+                  PLANNED INTEGRATION (Phase 5)
                 </span>
               </h4>
               <p className="text-xs text-slate-500">
-                Dispatches instant allotment result emails containing masked PAN summaries to {userSettings.email}
+                Email notification preferences preview. Production dispatches via Resend will be configured in Phase 5.
               </p>
             </div>
           </div>

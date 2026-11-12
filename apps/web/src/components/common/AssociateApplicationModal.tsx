@@ -196,7 +196,7 @@ export const AssociateApplicationModal: React.FC<AssociateApplicationModalProps>
               </span>
             </div>
             <div className="flex items-center justify-between pt-2 border-t border-slate-200 font-semibold text-slate-900">
-              <span>Total Capital Blocked:</span>
+              <span>Indicative Bid Amount (Demo):</span>
               <span className="text-emerald-700 font-mono text-sm">
                 ₹{calculateAmount().toLocaleString('en-IN')}
               </span>
@@ -204,12 +204,11 @@ export const AssociateApplicationModal: React.FC<AssociateApplicationModalProps>
           </div>
         )}
 
-        {/* Registrar Compliance Notice */}
-        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-200/60 text-[11px] text-emerald-900">
-          <Shield className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+        {/* Demo Record Notice */}
+        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-[11px] text-slate-600">
+          <Shield className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
           <span>
-            The registrar ({selectedIpo?.registrarDisplayName || 'Designated Registrar'}) will be polled
-            automatically on allotment date ({selectedIpo?.allotmentDate || 'TBD'}) using masked credentials.
+            This record will be saved to your local prototype session. Real registrar polling will be enabled in Phase 4.
           </span>
         </div>
 

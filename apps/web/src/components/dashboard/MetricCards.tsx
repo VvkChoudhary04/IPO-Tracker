@@ -36,7 +36,7 @@ export const MetricCards: React.FC = () => {
         <div className="text-2xl font-bold font-mono text-slate-900 mt-2">
           {totalApplications}
         </div>
-        <div className="text-[11px] text-slate-500 mt-1 truncate">Across all profiles</div>
+        <div className="text-[11px] text-slate-500 mt-1 truncate">Demo applications</div>
       </div>
 
       {/* 2. Total Applicants */}
@@ -53,7 +53,7 @@ export const MetricCards: React.FC = () => {
           {applicants.length}
         </div>
         <div className="text-[11px] text-emerald-600 font-medium mt-1 truncate">
-          Authorized PANs
+          Demo Profile Slots
         </div>
       </div>
 
@@ -71,7 +71,7 @@ export const MetricCards: React.FC = () => {
           {pendingCount}
         </div>
         <div className="text-[11px] text-amber-600 font-medium mt-1 truncate">
-          Awaiting Registrar
+          Awaiting Allotment Date
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export const MetricCards: React.FC = () => {
           {allottedCount}
         </div>
         <div className="text-[11px] text-emerald-600 font-medium mt-1 truncate">
-          Shares Confirmed
+          Simulated Outcomes
         </div>
       </div>
 
@@ -106,14 +106,14 @@ export const MetricCards: React.FC = () => {
         <div className="text-2xl font-bold font-mono text-slate-700 mt-2">
           {notAllottedCount}
         </div>
-        <div className="text-[11px] text-slate-500 mt-1 truncate">Refunds unblocked</div>
+        <div className="text-[11px] text-slate-500 mt-1 truncate">Refunds logged</div>
       </div>
 
-      {/* 6. Capital Blocked */}
+      {/* 6. Indicative Bid Sum */}
       <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-            Capital Blocked
+            Indicative Bid Sum
           </span>
           <div className="w-7 h-7 rounded-lg bg-slate-50 text-slate-700 flex items-center justify-center">
             <IndianRupee className="w-3.5 h-3.5" />
@@ -122,8 +122,8 @@ export const MetricCards: React.FC = () => {
         <div className="text-xl font-bold font-mono text-slate-900 mt-2 truncate">
           ₹{(totalCapitalBlocked / 100000).toFixed(2)}L
         </div>
-        <div className="text-[11px] text-slate-500 mt-1 truncate">
-          ₹{totalCapitalBlocked.toLocaleString('en-IN')}
+        <div className="text-[11px] text-slate-400 mt-1 truncate">
+          Simulated demo value
         </div>
       </div>
     </div>

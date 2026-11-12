@@ -23,7 +23,6 @@ export interface UserSettings {
   notifyOnBiddingDeadline: boolean;
   dailyDigest: boolean;
   instantAllotmentAlerts: boolean;
-  panVaultEncryptionActive: boolean;
   twoFactorEnabled: boolean;
 }
 
@@ -80,8 +79,7 @@ const DEFAULT_SETTINGS: UserSettings = {
   notifyOnBiddingDeadline: true,
   dailyDigest: false,
   instantAllotmentAlerts: true,
-  panVaultEncryptionActive: true,
-  twoFactorEnabled: true,
+  twoFactorEnabled: false,
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -329,3 +327,4 @@ export const useApp = () => {
   }
   return context;
 };
+

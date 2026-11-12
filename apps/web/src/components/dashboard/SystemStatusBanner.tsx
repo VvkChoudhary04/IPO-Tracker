@@ -28,9 +28,9 @@ export const SystemStatusBanner: React.FC<SystemStatusBannerProps> = ({
           />
           <div>
             <h4 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <span>Core Services Pipeline</span>
+              <span>Express API Health Service</span>
               <span className="text-xs font-normal text-slate-500">
-                (API Engine v{health?.version || '0.1.0'})
+                (v{health?.version || '0.1.0'})
               </span>
             </h4>
             <p className="text-xs text-slate-500">
@@ -68,7 +68,7 @@ export const SystemStatusBanner: React.FC<SystemStatusBannerProps> = ({
               <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
             )}
           </div>
-          <p className="text-[11px] font-medium text-slate-800 mt-1">REST Engine Active</p>
+          <p className="text-[11px] font-medium text-slate-800 mt-1">Health Endpoint Active</p>
         </div>
 
         <div className="bg-slate-50/70 border border-slate-200/60 rounded-lg p-2.5">

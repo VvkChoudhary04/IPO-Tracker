@@ -135,7 +135,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="flex items-center justify-between text-xs">
               <span className="font-medium text-slate-700 flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5 text-slate-500" />
-                Backend Engine
+                API Health Check
               </span>
               <span
                 className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full ${
@@ -161,7 +161,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             <div className="flex items-center gap-1.5 text-[11px] text-slate-500 pt-1 border-t border-slate-100">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span className="truncate">PAN Vault: AES-256 Masked</span>
+              <span className="truncate">Client-Side PAN Masking (Demo)</span>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import { SystemStatusBanner } from '../components/dashboard/SystemStatusBanner';
 import { RecentActivityFeed } from '../components/dashboard/RecentActivityFeed';
 import { ActiveIpoList } from '../components/dashboard/ActiveIpoList';
 import { AssociateApplicationModal } from '../components/common/AssociateApplicationModal';
-import { Plus, ShieldCheck, Zap } from 'lucide-react';
+import { Plus, ShieldCheck } from 'lucide-react';
 
 interface LayoutContextType {
   health: HealthResponse | null;
@@ -29,20 +29,19 @@ export const DashboardPage: React.FC = () => {
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               Portfolio & Allotment Overview
             </h1>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <Zap className="w-3 h-3 text-emerald-600" />
-              Auto-Sync Active
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+              Prototype UI Mode
             </span>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Real-time Indian primary market allotment monitoring across Link Intime, KFintech, and Bigshare.
+            Demonstration dashboard for Indian primary market allotment monitoring (Simulated Demo Fixtures).
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden md:flex px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs text-slate-600 items-center gap-2 shadow-xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span className="font-medium text-slate-800">SEBI-Compliant</span>
+          <div className="hidden md:flex px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200/80 text-xs text-amber-800 items-center gap-2 shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-amber-600" />
+            <span className="font-medium">Demo Data Only</span>
           </div>
 
           <button
