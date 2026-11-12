@@ -1,0 +1,241 @@
+// IPOTrack Database Schema - Supabase PostgreSQL & Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// -------------------------------------------------------------
+// ENUMS
+// -------------------------------------------------------------
+
+enum InvestorCategory {
+  RETAIL
+  SHNI        // Small HNI (₹2L - ₹10L)
+  BHNI        // Big HNI (> ₹10L)
+  EMPLOYEE
+  SHAREHOLDER
+}
+
+enum IpoIssueType {
+  MAINBOARD
+  SME
+}
+
+enum IpoStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  ALLOTMENT_FINALIZED
+  LISTED
+}
+
+enum IpoRegistrar {
+  LINK_INTIME
+  KFINTECH
+  BIGSHARE
+  CAMEO
+  SKYLINE
+  PURVA
+  OTHER
+}
+
+enum AllotmentStatus {
+  AWAITING_RESULT
+  ALLOTTED
+  NOT_ALLOTTED
+  REFUND_INITIATED
+}
+
+enum VerificationState {
+  VERIFIED_OFFICIAL
+  PENDING_CHECK
+  REGISTRAR_BUSY
+  MANUAL_VERIFICATION_REQUIRED
+}
+
+enum NotificationType {
+  ALLOTMENT_FINALIZED
+  ALLOTMENT_SUCCESS
+  NOT_ALLOTTED
+  BIDDING_CLOSING
+  SYSTEM_NOTICE
+}
+
+// -------------------------------------------------------------
+// MODELS
+// -------------------------------------------------------------
+
+/// User model mirroring Supabase auth.users
+model User {
+  id                String             @id // Corresponds to Supabase auth.users.id (UUID)
+  email             String             @unique
+  fullName          String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  // Relationships
+  applicantProfiles ApplicantProfile[]
+  applications      Application[]
+  notifications     Notification[]
+  auditLogs         AllotmentAuditLog[]
+
+  @@map("users")
+}
+
+/// Authorized Investor Profile (PAN owner)
+model ApplicantProfile {
+  id                String           @id @default(uuid())
+  userId            String
+  fullName          String
+  
+  // Encrypted with AES-256-GCM using server-side key
+  panEncrypted      String           // Hex ciphertext with IV and auth tag
+  panMasked         String           // Public representation (e.g. ABCDE****F)
+  panBlindIndex     String           // HMAC-SHA256 blind index for duplicate detection
+  
+  category          InvestorCategory @default(RETAIL)
+  dematAccount      String?          // Masked Demat Account / DP ID
+  email             String?          // For allotment notifications
+  phoneMasked       String?          // Masked contact phone
+  consentGiven      Boolean          @default(true)
+  consentTimestamp  DateTime         @default(now())
+  isActive          Boolean          @default(true)
+  
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  // Relationships
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applications      Application[]
+
+  @@unique([userId, panBlindIndex]) // Prevents duplicate PAN addition under the same user
+  @@index([userId])
+  @@map("applicant_profiles")
+}
+
+/// Public IPO Offerings Catalog
+model IPO {
+  id                   String              @id @default(uuid())
+  symbol               String              @unique
+  name                 String
+  issueType            IpoIssueType        @default(MAINBOARD)
+  priceMin             Decimal             @db.Decimal(12, 2)
+  priceMax             Decimal             @db.Decimal(12, 2)
+  lotSize              Int
+  minInvestment        Decimal             @db.Decimal(12, 2)
+  openDate             DateTime
+  closeDate            DateTime
+  allotmentDate        DateTime
+  listingDate          DateTime
+  status               IpoStatus           @default(UPCOMING)
+  registrar            IpoRegistrar
+  registrarDisplayName String
+  gmp                  Decimal?            @db.Decimal(10, 2)
+  issueSizeCr          Decimal?            @db.Decimal(12, 2)
+  exchange             String?             @default("NSE & BSE")
+  description          String?             @db.Text
+  
+  // Subscription demand metrics (multiplier times)
+  qibSubscription      Decimal?            @db.Decimal(8, 2)
+  niiSubscription      Decimal?            @db.Decimal(8, 2)
+  retailSubscription   Decimal?            @db.Decimal(8, 2)
+  totalSubscription    Decimal?            @db.Decimal(8, 2)
+
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+
+  // Relationships
+  applications         Application[]
+  auditLogs            AllotmentAuditLog[]
+
+  @@index([status])
+  @@index([allotmentDate])
+  @@map("ipos")
+}
+
+/// User IPO Bid Application monitored for allotment
+model Application {
+  id                  String             @id @default(uuid())
+  userId              String             // Direct user tenancy check
+  applicantProfileId  String
+  ipoId               String
+  applicationNumber   String             // Broker / ASBA application number
+  category            InvestorCategory   @default(RETAIL)
+  lotsApplied         Int                @default(1)
+  sharesApplied       Int
+  bidAmount           Decimal            @db.Decimal(14, 2)
+  status              AllotmentStatus    @default(AWAITING_RESULT)
+  verificationState   VerificationState  @default(PENDING_CHECK)
+  sharesAllotted      Int                @default(0)
+  refundAmount        Decimal?           @db.Decimal(14, 2)
+  appliedAt           DateTime           @default(now())
+  lastCheckedAt       DateTime?
+
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  // Relationships
+  user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applicantProfile    ApplicantProfile   @relation(fields: [applicantProfileId], references: [id], onDelete: Cascade)
+  ipo                 IPO                @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+  auditLogs           AllotmentAuditLog[]
+
+  @@unique([userId, ipoId, applicationNumber])
+  @@index([userId])
+  @@index([status])
+  @@index([ipoId])
+  @@map("applications")
+}
+
+/// Immutable Audit Log of Allotment Checks against Registrars
+model AllotmentAuditLog {
+  id                 String          @id @default(uuid())
+  applicationId      String
+  userId             String
+  ipoId              String
+  registrar          IpoRegistrar
+  queryTimestamp     DateTime        @default(now())
+  httpStatusCode     Int?
+  registrarResponse  String?         @db.Text // Sanitized response (PAN stripped)
+  previousStatus     AllotmentStatus?
+  newStatus          AllotmentStatus
+  sharesAllotted     Int             @default(0)
+  refundAmount       Decimal?        @db.Decimal(14, 2)
+  success            Boolean         @default(true)
+  errorMessage       String?
+
+  // Relationships
+  application        Application     @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipo                IPO             @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([userId])
+  @@map("allotment_audit_logs")
+}
+
+/// Notification Feed Item
+model Notification {
+  id                 String           @id @default(uuid())
+  userId             String
+  title              String
+  message            String           @db.Text
+  type               NotificationType @default(SYSTEM_NOTICE)
+  isRead             Boolean          @default(false)
+  ipoId              String?
+  applicantProfileId String?
+  createdAt          DateTime         @default(now())
+
+  // Relationships
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
