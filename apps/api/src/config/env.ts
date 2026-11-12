@@ -11,3 +11,4 @@ export const env = {
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   apiPrefix: process.env.API_PREFIX || '/api',
 };
+

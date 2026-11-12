@@ -16,3 +16,4 @@ export interface ApiResponse<T> {
     details?: unknown;
   };
 }
+

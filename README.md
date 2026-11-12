@@ -105,3 +105,4 @@ npm run build
 - [ ] **Phase 4**: Official registrar fetchers (Link Intime, KFintech, Bigshare) and parser pipeline.
 - [ ] **Phase 5**: BullMQ + Redis scheduled workers for automated polling during allotment windows.
 - [ ] **Phase 6**: Resend email notification templates on allotment confirmation.
+

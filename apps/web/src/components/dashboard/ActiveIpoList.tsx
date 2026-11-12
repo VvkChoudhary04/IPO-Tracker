@@ -1,89 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useApp } from '../../context/AppContext';
 import { IpoItem } from '@ipotrack/shared';
 import { StatusBadge } from '../common/StatusBadge';
+import { IpoDetailModal } from '../ipos/IpoDetailModal';
+import { AssociateApplicationModal } from '../common/AssociateApplicationModal';
 import { Calendar, Building2, ChevronRight } from 'lucide-react';
-
-// Sample demonstration catalog of public IPO offerings (market metadata, not allotment results)
-const SAMPLE_IPOS: IpoItem[] = [
-  {
-    id: 'ipo-1',
-    name: 'Tata Capital Technologies Ltd.',
-    symbol: 'TATACAP',
-    issueType: 'MAINBOARD',
-    priceRange: { min: 475, max: 500 },
-    lotSize: 30,
-    minInvestment: 15000,
-    openDate: '2026-11-10',
-    closeDate: '2026-11-13',
-    allotmentDate: '2026-11-14',
-    listingDate: '2026-11-18',
-    status: 'OPEN',
-    registrar: 'LINK_INTIME',
-    registrarDisplayName: 'Link Intime India',
-    gmp: 85,
-  },
-  {
-    id: 'ipo-2',
-    name: 'CleanGrid Energy Solutions Ltd.',
-    symbol: 'CLEANGRID',
-    issueType: 'MAINBOARD',
-    priceRange: { min: 215, max: 227 },
-    lotSize: 65,
-    minInvestment: 14755,
-    openDate: '2026-11-08',
-    closeDate: '2026-11-11',
-    allotmentDate: '2026-11-12',
-    listingDate: '2026-11-17',
-    status: 'ALLOTMENT_FINALIZED',
-    registrar: 'KFINTECH',
-    registrarDisplayName: 'KFin Technologies',
-    gmp: 42,
-  },
-  {
-    id: 'ipo-3',
-    name: 'AeroPrecision Components SME Ltd.',
-    symbol: 'AEROPREC',
-    issueType: 'SME',
-    priceRange: { min: 140, max: 145 },
-    lotSize: 1000,
-    minInvestment: 145000,
-    openDate: '2026-11-11',
-    closeDate: '2026-11-14',
-    allotmentDate: '2026-11-17',
-    listingDate: '2026-11-20',
-    status: 'OPEN',
-    registrar: 'BIGSHARE',
-    registrarDisplayName: 'Bigshare Services',
-    gmp: 35,
-  },
-  {
-    id: 'ipo-4',
-    name: 'FinTech Cloud Networks Ltd.',
-    symbol: 'FINCLOUD',
-    issueType: 'MAINBOARD',
-    priceRange: { min: 610, max: 642 },
-    lotSize: 23,
-    minInvestment: 14766,
-    openDate: '2026-11-16',
-    closeDate: '2026-11-19',
-    allotmentDate: '2026-11-20',
-    listingDate: '2026-11-25',
-    status: 'UPCOMING',
-    registrar: 'LINK_INTIME',
-    registrarDisplayName: 'Link Intime India',
-  },
-];
+import { useNavigate } from 'react-router-dom';
 
 export const ActiveIpoList: React.FC = () => {
+  const navigate = useNavigate();
+  const { ipos } = useApp();
+  const [selectedIpo, setSelectedIpo] = useState<IpoItem | null>(null);
+  const [trackIpo, setTrackIpo] = useState<IpoItem | null>(null);
+
   return (
     <div className="bg-white rounded-xl border border-slate-200/90 shadow-xs overflow-hidden">
       <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h3 className="text-base font-semibold text-slate-900">Current & Upcoming Issues</h3>
-          <p className="text-xs text-slate-500">Live Indian Mainboard & SME offerings monitored for allotment</p>
+          <p className="text-xs text-slate-500">
+            Live Indian Mainboard & SME offerings monitored for allotment
+          </p>
         </div>
-        <button className="text-xs font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-          <span>View All Issues</span>
+        <button
+          onClick={() => navigate('/ipos')}
+          className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 transition-colors"
+        >
+          <span>View All Issues ({ipos.length})</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -102,13 +45,14 @@ export const ActiveIpoList: React.FC = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-sm">
-            {SAMPLE_IPOS.map((ipo) => (
+            {ipos.slice(0, 5).map((ipo) => (
               <tr
                 key={ipo.id}
+                onClick={() => setSelectedIpo(ipo)}
                 className="hover:bg-slate-50/60 transition-colors group cursor-pointer"
               >
                 <td className="py-4 px-6">
-                  <div className="font-medium text-slate-900 flex items-center gap-2">
+                  <div className="font-semibold text-slate-900 flex items-center gap-2 group-hover:text-emerald-700 transition-colors">
                     <span>{ipo.name}</span>
                     {ipo.gmp && (
                       <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200/50">
@@ -134,10 +78,12 @@ export const ActiveIpoList: React.FC = () => {
                 </td>
                 <td className="py-4 px-4 text-xs text-slate-700 font-mono">
                   {ipo.lotSize} shares
-                  <div className="text-[10px] text-slate-400">Min ₹{ipo.minInvestment.toLocaleString('en-IN')}</div>
+                  <div className="text-[10px] text-slate-400">
+                    Min ₹{ipo.minInvestment.toLocaleString('en-IN')}
+                  </div>
                 </td>
                 <td className="py-4 px-4 text-xs text-slate-700">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 font-medium">
                     <Calendar className="w-3.5 h-3.5 text-slate-400" />
                     <span>{ipo.allotmentDate}</span>
                   </div>
@@ -156,6 +102,19 @@ export const ActiveIpoList: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+      <IpoDetailModal
+        isOpen={Boolean(selectedIpo)}
+        onClose={() => setSelectedIpo(null)}
+        ipo={selectedIpo}
+        onTrackApplication={(ipo) => setTrackIpo(ipo)}
+      />
+
+      <AssociateApplicationModal
+        isOpen={Boolean(trackIpo)}
+        onClose={() => setTrackIpo(null)}
+        defaultIpoId={trackIpo?.id}
+      />
     </div>
   );
 };

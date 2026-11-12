@@ -21,3 +21,4 @@ router.get('/health', (_req: Request, res: Response) => {
 });
 
 export const healthRoutes = router;
+

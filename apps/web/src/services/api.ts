@@ -15,3 +15,4 @@ export async function fetchHealth(): Promise<HealthResponse | null> {
     return null;
   }
 }
+

@@ -16,6 +16,13 @@ export type IpoStatus =
   | 'ALLOTMENT_FINALIZED' 
   | 'LISTED';
 
+export interface IpoSubscriptionDetails {
+  qib: number; // e.g. 52.4
+  nii: number; // e.g. 18.2
+  retail: number; // e.g. 8.5
+  total: number; // e.g. 26.3
+}
+
 export interface IpoItem {
   id: string;
   name: string;
@@ -34,5 +41,9 @@ export interface IpoItem {
   status: IpoStatus;
   registrar: IpoRegistrar;
   registrarDisplayName: string;
-  gmp?: number; // Grey Market Premium indicator (optional estimate in INR)
+  gmp?: number; // Grey Market Premium in INR (estimate)
+  issueSizeCr?: number; // Total issue size in ₹ Crores
+  exchange?: 'NSE & BSE' | 'BSE SME' | 'NSE Emerge';
+  description?: string;
+  subscription?: IpoSubscriptionDetails;
 }

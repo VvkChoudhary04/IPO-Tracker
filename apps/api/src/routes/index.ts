@@ -19,3 +19,4 @@ apiRouter.get('/', (_req, res) => {
 });
 
 export { apiRouter };
+

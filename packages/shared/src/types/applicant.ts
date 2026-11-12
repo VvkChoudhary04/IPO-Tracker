@@ -10,8 +10,12 @@ export interface ApplicantProfileSummary {
   fullName: string;
   maskedPan: string; // e.g. "ABCDE****F"
   category: InvestorCategory;
-  defaultDematId?: string;
+  email?: string;
+  phoneMasked?: string;
+  dematAccount?: string; // 16-digit masked DP/Client ID
   isActive: boolean;
   totalApplicationsCount: number;
+  consentGiven: boolean;
+  consentDate: string;
   createdAt: string;
 }
